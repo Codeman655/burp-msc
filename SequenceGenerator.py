@@ -78,11 +78,17 @@ msc {
         recipient = "Client"
         label = message["response"]["data"]
         out += "  %s<=%s [ label = \"%s\" ];\n" % (recipient,sender,label)
-    print out + "\n}\n"
+    out += "\n}\n"
+    print out
+    #Should check if path already exists
     path = self.getFilePath()
-    fp = open(path, 'w')
-    fp.write(out)
-    fp.close()
+    filename = path.getCanonicalPath()
+    #Forcibly add the extension
+    if '.msc' not in filename:
+      filename += ".msc" 
+    f = open(filename, "w")
+    f.write(out)
+    f.close()
 
     #Uses the messages global array to generate the MSC file
 
